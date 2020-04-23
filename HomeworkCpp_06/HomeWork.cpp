@@ -526,3 +526,67 @@ void HomeWork::Task8()
 		std::cout << "Ошибка ввода данных!" << std::endl;
 	}
 }
+
+void HomeWork::Task9()
+{
+	system("cls");
+	setlocale(LC_ALL, "Russian.utf8");
+
+	std::string strInitialDepositAmount; // Начальная сумма вклада
+	std::string strInterestRate;         // Процентная ставка
+	std::string strFinalAmountOfDeposit; // Конечная сумма вклада
+
+	std::cout << "Введите начальную сумму вклада: ";
+	std::getline(std::cin, strInitialDepositAmount);
+	std::cout << "Введите процентную ставку: ";
+	std::getline(std::cin, strInterestRate);
+	std::cout << "Введите конечную сумму вклада: ";
+	std::getline(std::cin, strFinalAmountOfDeposit);
+
+	int initialDepositAmount = 0;
+	int interestRate = 0;
+	int finalAmountOfDeposit = 0;
+
+	if (ConvertToInt(strInitialDepositAmount, initialDepositAmount) && 
+		ConvertToInt(strInterestRate, interestRate) && 
+		ConvertToInt(strFinalAmountOfDeposit, finalAmountOfDeposit))
+	{
+		if (initialDepositAmount > 0 && interestRate > 0 && finalAmountOfDeposit > 0)
+		{
+			if (initialDepositAmount < finalAmountOfDeposit)
+			{
+				float growth = initialDepositAmount;
+				int numberOfYears = 0;
+
+				while (growth < finalAmountOfDeposit)
+				{
+					growth = growth * (1 + (float)interestRate / 100);
+					growth = (int)growth;
+					numberOfYears++;
+				}
+
+				std::cout << "------------------------------------------------" << std::endl;
+				std::cout << "Начальная сумма вклада: " << initialDepositAmount << std::endl;
+				std::cout << "Конечная сумма вклада: " << growth << std::endl;
+				std::cout << "Количество лет: " << numberOfYears << std::endl;
+			}
+			else
+			{
+				std::cout << "Начальная сумма вклада не может быть больше конечной!" << std::endl;
+			}
+		}
+		else
+		{
+			std::cout << "Ошибка ввода данных!" << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << "Ошибка ввода данных!" << std::endl;
+	}
+}
+
+void HomeWork::Task10()
+{
+
+}
