@@ -12,5 +12,6 @@ int main()
     //homeWork.Task6();
     //homeWork.Task7();
     //homeWork.Task8();
-    homeWork.Task9();
+    //homeWork.Task9();
+    homeWork.Task10();    
 }

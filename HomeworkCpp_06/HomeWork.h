@@ -1,11 +1,16 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <exception>
+#include <cmath>
+#include <random>
+#include "MenuController.h"
 
 class HomeWork
 {
 private:
+
+	/// Генератор случайных чисел в диапазоне [min; max) 
+	int Random(int min, int max);
 
 	/// Модуль числа
 	int AbsoluteValue(int number);
@@ -25,6 +30,9 @@ private:
 	/// Преобразует строку в целое число
 	bool ConvertToInt(std::string strNumber, int& number);
 
+	/// Преобразует целое число в строку
+	std::string ConvertToString(int number);
+
 	/// Проверяет является ли число степенью двойки
 	bool DegreeOfTwo(int number);
 
@@ -33,6 +41,12 @@ private:
 
 	/// Определяет наибольший общий делитель
 	int GreatestCommonFactor(int number1, int number2);
+
+	/// Повторяет строку 
+	void RepeatingCharacters(std::string str, int number);
+
+	/// Выбор ответа
+	int Answer(std::string text);
 
 public:
 

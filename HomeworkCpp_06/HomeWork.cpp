@@ -1,5 +1,13 @@
 #include "HomeWork.h"
 
+int HomeWork::Random(int min, int max)
+{
+	std::random_device rd;
+	std::mt19937 mersenne(rd());
+
+	return min + mersenne() % (max - min);
+}
+
 int HomeWork::AbsoluteValue(int number)
 {
 	return (number >= 0) ? number : -number;
@@ -119,6 +127,46 @@ bool HomeWork::ConvertToInt(std::string strNumber, int& number)
 	return false;
 }
 
+std::string HomeWork::ConvertToString(int number)
+{
+	std::string outString;
+		
+	if (number != 0)
+	{		
+		int sign = 1;
+
+		if (number < 0)
+		{
+			number = -number;
+			sign = -1;
+		}
+
+		int numberOfDigits = floor(log10(number)); // Разрядность числа
+
+		int k = numberOfDigits;
+		int n = 0;
+
+		while (0 <= k)
+		{
+			n = (number / pow(10, k));
+			outString += n | 0x30;
+			number -= n * pow(10, k);
+			k--;			
+		}
+
+		if (sign == -1)
+		{
+			outString = "-" + outString;
+		}
+	}
+	else
+	{
+		outString = "0";
+	}	
+
+	return outString;
+}
+
 bool HomeWork::DegreeOfTwo(int number)
 {
 	if (number > 0)
@@ -193,6 +241,30 @@ int HomeWork::GreatestCommonFactor(int number1, int number2)
 	return number1 + number2;
 }
 
+void HomeWork::RepeatingCharacters(std::string str, int number)
+{
+	int i = 0;
+
+	while (i != number)
+	{
+		std::cout << str;
+		i++;
+	}
+
+	std::cout << std::endl;
+}
+
+int HomeWork::Answer(std::string text)
+{
+	system("cls");
+	setlocale(LC_ALL, "Russian.utf8");
+
+	std::string items[2] = { "Да", "Нет" };
+	MenuController menu(items, 2);
+	
+	return menu.selectedMenuItem(text);
+}
+
 void HomeWork::Task1()
 {
 	system("cls");
@@ -200,48 +272,24 @@ void HomeWork::Task1()
 
 	int hour = 0;
 
-	std::cout << "Введите количество часов: ";
+	std::cout << "Введите количество часов (0 - 23): ";
 	std::cin >> hour;
 
 	if (0 <= hour && hour <= 23)
 	{
 		if (1 <= hour && hour <= 12)
 		{
-			int i = 0;
-
-			while (i != hour)
-			{
-				std::cout << "Ку ";
-				i++;
-			}
-
-			std::cout << std::endl;
+			RepeatingCharacters("Ку ", hour);
 		}
 
 		if (hour == 0)
 		{
-			int i = 0;
-
-			while (i != 12)
-			{
-				std::cout << "Ку ";
-				i++;
-			}
-
-			std::cout << std::endl;
+			RepeatingCharacters("Ку ", 12);
 		}
 
 		if (13 <= hour && hour <= 23)
 		{
-			int i = 0;
-
-			while (i != hour - 12)
-			{
-				std::cout << "Ку ";
-				i++;
-			}
-
-			std::cout << std::endl;
+			RepeatingCharacters("Ку ", hour - 12);
 		}
 	}
 	else
@@ -264,13 +312,13 @@ void HomeWork::Task2()
 	std::cin >> amountOfDebt;
 	std::cout << "-------------------------------------" << std::endl;
 
-	if (name != "/0" && amountOfDebt > 0)
-	{		
-		while(amountOfDebt > 0)
+	if (name != "" && amountOfDebt > 0)
+	{
+		while (amountOfDebt > 0)
 		{
 			int k = 0;
 
-			std::cout << "Ваш долг "<< name <<" составляет: " << amountOfDebt << std::endl;
+			std::cout << "Ваш долг " << name << " составляет: " << amountOfDebt << std::endl;
 			std::cout << "Введите сумму для погашения долга: ";
 			std::cin >> k;
 
@@ -286,20 +334,13 @@ void HomeWork::Task2()
 			std::cout << "-------------------------------------" << std::endl;
 		}
 
-		if (amountOfDebt == 0)
-		{
-			std::cout << "Ваш долг " << name << " погашен!" << std::endl;
-		}
-		else
-		{
-			std::cout << "Ваш долг " << name << " погашен!" << std::endl;
-			std::cout << "Ваша сдача: " << - amountOfDebt << std::endl;
-		}		
+		std::cout << "Ваш долг " << name << " погашен!" << std::endl;		
 	}
 	else
 	{
 		std::cout << "Ошибка ввода данных!" << std::endl;
 	}
+
 }
 
 void HomeWork::Task3()
@@ -332,9 +373,55 @@ void HomeWork::Task3()
 }
 
 void HomeWork::Task4()
-{
+{	
 	system("cls");
 	setlocale(LC_ALL, "Russian.utf8");
+
+	std::string name;
+	int amountOfDebt = 0;
+
+	std::cout << "Введите имя: ";
+	std::cin >> name;
+	std::cout << "Введите сумму долга: ";
+	std::cin >> amountOfDebt;
+	std::cout << "-------------------------------------" << std::endl;
+
+	if (name != "/0" && amountOfDebt > 0)
+	{
+		while (amountOfDebt > 0)
+		{
+			int k = 0;
+
+			std::cout << "Ваш долг " << name << " составляет: " << amountOfDebt << std::endl;
+			std::cout << "Введите сумму для погашения долга: ";
+			std::cin >> k;
+
+			if (k > 0)
+			{
+				amountOfDebt -= k;
+			}
+			else
+			{
+				std::cout << "Ошибка ввода данных!" << std::endl;
+			}
+
+			std::cout << "-------------------------------------" << std::endl;
+		}
+
+		if (amountOfDebt == 0)
+		{
+			std::cout << "Ваш долг " << name << " погашен!" << std::endl;
+		}
+		else
+		{
+			std::cout << "Ваш долг " << name << " погашен!" << std::endl;
+			std::cout << "Ваша сдача: " << -amountOfDebt << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << "Ошибка ввода данных!" << std::endl;
+	}
 }
 
 void HomeWork::Task5()
@@ -344,7 +431,7 @@ void HomeWork::Task5()
 	
 	std::string strNumber;
 
-	std::cout << "Введите шестизначный номер: ";
+	std::cout << "Введите шестизначный номер билетика: ";
 	std::getline(std::cin, strNumber);
 	int number = 0;
 		
@@ -504,11 +591,11 @@ void HomeWork::Task8()
 
 				if (denominator != 1)
 				{
-					std::cout << numerator << "/" << denominator << std::endl;
+					std::cout << "После сокращения: " << numerator << "/" << denominator << std::endl;
 				}
 				else
 				{
-					std::cout << numerator << std::endl;
+					std::cout << "После сокращения: " << numerator << std::endl;
 				}				
 			}
 			else
@@ -561,7 +648,7 @@ void HomeWork::Task9()
 				while (growth < finalAmountOfDeposit)
 				{
 					growth = growth * (1 + (float)interestRate / 100);
-					growth = (int)growth;
+					growth = floor(growth);
 					numberOfYears++;
 				}
 
@@ -588,5 +675,53 @@ void HomeWork::Task9()
 
 void HomeWork::Task10()
 {
+	system("cls");
+	setlocale(LC_ALL, "Russian.utf8");
 
+	int const minNumber = 1;
+	int const maxNumber = 63;
+
+	std::string strNumber;
+	int number;
+
+	std::cout << "Введите число (" << minNumber << " - " << maxNumber << ") : ";
+	std::getline(std::cin, strNumber);
+
+	if (ConvertToInt(strNumber, number))
+	{
+		if (minNumber <= number && number <= maxNumber)
+		{
+			int min = minNumber;
+			int max = maxNumber + 1;			
+			int k = Random(minNumber, maxNumber + 1);
+			
+			std::string text;
+			
+			while (k != number)
+			{			
+				text = "Загаданное число больше " + ConvertToString(k) + "?";
+								
+				if (Answer(text) == 0)
+				{
+					min = k;														
+				}
+				else
+				{					
+					max = k;							
+				}
+				
+				k = min + AbsoluteValue(max - min) / 2;
+			}
+
+			std::cout << "Вы загдали число: " << k << std::endl;
+		}
+		else
+		{
+			std::cout << "Выход за границы диапазона!" << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << "Ошибка ввода данных!" << std::endl;
+	}
 }

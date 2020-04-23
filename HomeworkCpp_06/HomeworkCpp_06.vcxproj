@@ -149,9 +149,13 @@
   <ItemGroup>
     <ClCompile Include="HomeWork.cpp" />
     <ClCompile Include="HomeworkCpp_06.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HomeWork.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
