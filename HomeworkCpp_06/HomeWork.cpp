@@ -324,8 +324,16 @@ void HomeWork::Task2()
 
 			if (k > 0)
 			{
-				amountOfDebt -= k;
-			}
+				if (k >= amountOfDebt)
+				{
+					amountOfDebt -= k;
+				}
+				else
+				{
+					std::cout << "Сумма " << k << " недостаточная для погашения долга." << std::endl;
+					std::cout << "Сумма  должна быть не менее :" << amountOfDebt << std::endl;
+				}
+			}			
 			else
 			{
 				std::cout << "Ошибка ввода данных!" << std::endl;
@@ -693,15 +701,18 @@ void HomeWork::Task10()
 		{
 			int min = minNumber;
 			int max = maxNumber + 1;			
-			int k = Random(minNumber, maxNumber + 1);
+			int k = AbsoluteValue(maxNumber - minNumber) / 2;
 			
-			std::string text;
+			std::string text1;
+			std::string text2;
 			
-			while (k != number)
+			text1 = "Ваше число равно: " + ConvertToString(k) + "?";
+
+			while (Answer(text1) != 0)
 			{			
-				text = "Загаданное число больше " + ConvertToString(k) + "?";
+				text2 = "Загаданное число больше " + ConvertToString(k) + "?";
 								
-				if (Answer(text) == 0)
+				if (Answer(text2) == 0)
 				{
 					min = k;														
 				}
@@ -711,6 +722,8 @@ void HomeWork::Task10()
 				}
 				
 				k = min + AbsoluteValue(max - min) / 2;
+
+				text1 = "Ваше число равно: " + ConvertToString(k) + "?";
 			}
 
 			std::cout << "Вы загдали число: " << k << std::endl;
